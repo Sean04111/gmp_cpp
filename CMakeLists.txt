@@ -15,12 +15,18 @@ FetchContent_MakeAvailable(googletest)
 
 # for unit tests
 set(TEST_NAME gmp_test)
-aux_source_directory(./tests test_source)
 enable_testing()
 
 add_executable(
         ${TEST_NAME}
-        ${test_source}
+        tests/orderedmap_test.cc
+        tests/google_test.cc
+        src/ordered_map.cpp
+        include/scheduler.h
+        include/routine.h
+        include/thread.h
+        include/pool.h
+        include/common.h
 )
 
 target_link_libraries(
@@ -31,10 +37,12 @@ include(GoogleTest)
 gtest_discover_tests(${TEST_NAME})
 
 # project code
-aux_source_directory(./src src_codes)
-aux_source_directory(./include src_codes)
 add_executable(
         ${bin_name}
-        ${src_codes}
         include/scheduler.h
+        include/routine.h
+        include/thread.h
+        include/pool.h
+        include/common.h
+        src/ordered_map.cpp
 )
